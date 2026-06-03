@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honza a Áďa slaví 65 • Verze 3.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#fbbf24;--glass:rgba(255,255,255,.08)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Poppins,sans-serif;background:#08111d;color:#fff;overflow-x:hidden}
+#fireworks{position:fixed;inset:0;z-index:0}
+.hero{position:relative;height:100vh;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.5)),url('hero.jpg') center/cover fixed;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero-content{z-index:2;padding:30px}
+.hero h1{font-size:min(12vw,6rem);margin:0;text-shadow:0 0 30px rgba(251,191,36,.6)}
+.hero .sub{font-size:1.4rem}
+.glass{background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:30px}
+section{position:relative;z-index:1;max-width:1200px;margin:auto;padding:80px 20px}
+.card{padding:40px}
+.count{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.box{padding:20px;min-width:120px;text-align:center;background:rgba(251,191,36,.15);border-radius:20px}
+.box span{display:block;font-size:2.5rem;font-weight:800}
+.timeline{position:relative}
+.timeline:before{content:'';position:absolute;left:16px;top:0;bottom:0;width:3px;background:var(--gold)}
+.timeline .item{margin:20px 0;padding-left:45px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.gallery img{width:100%;height:420px;object-fit:cover;border-radius:24px;transition:.4s}
+.gallery img:hover{transform:scale(1.03)}
+form{display:grid;gap:12px}
+input,select,textarea,button{padding:14px;border-radius:14px;border:none}
+button{background:var(--gold);font-weight:700;cursor:pointer}
+iframe{width:100%;height:450px;border:0;border-radius:24px}
+.reveal{opacity:0;transform:translateY(40px);transition:.8s}
+.reveal.show{opacity:1;transform:none}
+footer{text-align:center;padding:60px 20px}
+.hero-btn{display:inline-block;margin-top:20px;padding:15px 28px;background:var(--gold);color:#000;text-decoration:none;border-radius:999px;font-weight:700}
+.stars{position:fixed;inset:0;background-image:radial-gradient(white 1px,transparent 1px);background-size:50px 50px;opacity:.15;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<canvas id="fireworks"></canvas>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>🎉 Honza a Áďa slaví 65 🎉</h1>
+    <p class="sub">11. července 2026 • 14:00 • Hrabětice, Hrušovanská 52</p>
+    <a class="hero-btn" href="#rsvp">Potvrdit účast</a>
+  </div>
+</div>
+
+<section class="reveal">
+<div class="glass card">
+<h2>Odpočet do oslavy</h2>
+<div class="count">
+<div class="box"><span id="d">0</span>Dní</div>
+<div class="box"><span id="h">0</span>Hodin</div>
+<div class="box"><span id="m">0</span>Minut</div>
+<div class="box"><span id="s">0</span>Sekund</div>
+</div>
+</div>
+</section>
+
+<section class="reveal">
+<div class="glass card">
+<h2>Pozvánka</h2>
+<p>Přijďte s námi oslavit naše 65. narozeniny. Čeká nás den plný pohody, dobrého jídla, hudby, smíchu a společných vzpomínek.</p>
+</div>
+</section>
+
+<section class="reveal">
+<div class="glass card timeline">
+<h2>Program dne</h2>
+<div class="item">14:00 – Příjezd hostů a uvítání</div>
+<div class="item">15:00 – Společný přípitek</div>
+<div class="item">16:00 – Grilování a občerstvení</div>
+<div class="item">18:00 – Hudba a zábava</div>
+<div class="item">22:00 – Volná zábava</div>
+</div>
+</section>
+
+<section class="reveal">
+<h2>Naše vzpomínky</h2>
+<div class="gallery">
+<img src="hero.jpg">
+<img src="sloni.jpg">
+<img src="zapad.jpg">
+</div>
+</section>
+
+<section id="rsvp" class="reveal">
+<div class="glass card">
+<h2>Potvrzení účasti do 30. 6. 2026</h2>
+<form action="https://formsubmit.co/soldan@seznam.cz" method="POST">
+<input required name="Jmeno" placeholder="Jméno">
+<select name="Ucast"><option>Přijdu</option><option>Nepřijdu</option></select>
+<input name="Pocet" placeholder="Počet osob">
+<textarea name="Poznamka" placeholder="Poznámka"></textarea>
+<button>Odeslat potvrzení</button>
+</form>
+</div>
+</section>
+
+<section class="reveal">
+<div class="glass card">
+<h2>Jak nás najdete</h2>
+<iframe src="https://maps.google.com/maps?q=Hrabetice%20Hrusovanska%2052&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+</div>
+</section>
+
+<section class="reveal">
+<div class="glass card">
+<h2>Dárky</h2>
+<p>Vaše přítomnost je pro nás největším dárkem.</p>
+<p>Pokud byste nám přesto chtěli něco věnovat, potěší nás příspěvek v obálce, který nám pomůže s náklady na oslavu.</p>
+<p>📞 728 850 522 • ✉️ soldan@seznam.cz</p>
+</div>
+</section>
+
+<footer>
+<h2>Těšíme se na vás ❤️</h2>
+<p>Honza a Áďa</p>
+</footer>
+
+<script>
+const target=new Date("2026-07-11T14:00:00").getTime();
+setInterval(()=>{
+let x=target-Date.now();
+d.textContent=Math.floor(x/86400000);
+h.textContent=Math.floor((x%86400000)/3600000);
+m.textContent=Math.floor((x%3600000)/60000);
+s.textContent=Math.floor((x%60000)/1000);
+},1000);
+
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('show')));
+document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+
+const c=document.getElementById('fireworks'),ctx=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight}resize();addEventListener('resize',resize);
+let particles=[],rockets=[];
+
+function launch(){
+ rockets.push({x:Math.random()*c.width,y:c.height,v:-7-Math.random()*3});
+}
+setInterval(launch,1200);
+
+function explode(x,y){
+ for(let i=0;i<100;i++){
+   particles.push({x,y,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10,l:100,h:Math.random()*360});
+ }
+}
+c.addEventListener('click',e=>explode(e.clientX,e.clientY));
+
+(function anim(){
+ requestAnimationFrame(anim);
+ ctx.clearRect(0,0,c.width,c.height);
+
+ rockets.forEach(r=>{
+   r.y+=r.v;
+   ctx.fillStyle='white';
+   ctx.fillRect(r.x,r.y,2,10);
+   if(r.y<c.height*(0.2+Math.random()*0.4)){
+      explode(r.x,r.y);
+      r.dead=true;
+   }
+ });
+ rockets=rockets.filter(r=>!r.dead);
+
+ particles.forEach(p=>{
+   p.x+=p.vx;p.y+=p.vy;p.vy+=0.04;p.l--;
+   ctx.fillStyle=`hsla(${p.h},100%,60%,${p.l/100})`;
+   ctx.beginPath();ctx.arc(p.x,p.y,3,0,7);ctx.fill();
+ });
+ particles=particles.filter(p=>p.l>0);
+})();
+</script>
+</body>
+</html>
