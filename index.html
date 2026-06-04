@@ -1,179 +1,471 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Honza a Áďa slaví 65 • Verze 3.0</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Honza a Áďa slaví 65 • Verze 4.0 Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#fbbf24;--glass:rgba(255,255,255,.08)}
+:root{
+  --gold:#f6c453;
+  --gold2:#fff1a8;
+  --rose:#ff7eb3;
+  --blue:#5ee7ff;
+  --night:#07101f;
+  --ink:#101828;
+  --glass:rgba(255,255,255,.105);
+  --line:rgba(255,255,255,.2);
+  --shadow:0 28px 70px rgba(0,0,0,.38);
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:Poppins,sans-serif;background:#08111d;color:#fff;overflow-x:hidden}
-#fireworks{position:fixed;inset:0;z-index:0}
-.hero{position:relative;height:100vh;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.5)),url('hero.jpg') center/cover fixed;display:flex;align-items:center;justify-content:center;text-align:center}
-.hero-content{z-index:2;padding:30px}
-.hero h1{font-size:min(12vw,6rem);margin:0;text-shadow:0 0 30px rgba(251,191,36,.6)}
-.hero .sub{font-size:1.4rem}
-.glass{background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:30px}
-section{position:relative;z-index:1;max-width:1200px;margin:auto;padding:80px 20px}
-.card{padding:40px}
-.count{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-.box{padding:20px;min-width:120px;text-align:center;background:rgba(251,191,36,.15);border-radius:20px}
-.box span{display:block;font-size:2.5rem;font-weight:800}
-.timeline{position:relative}
-.timeline:before{content:'';position:absolute;left:16px;top:0;bottom:0;width:3px;background:var(--gold)}
-.timeline .item{margin:20px 0;padding-left:45px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.gallery img{width:100%;height:420px;object-fit:cover;border-radius:24px;transition:.4s}
-.gallery img:hover{transform:scale(1.03)}
-form{display:grid;gap:12px}
-input,select,textarea,button{padding:14px;border-radius:14px;border:none}
-button{background:var(--gold);font-weight:700;cursor:pointer}
-iframe{width:100%;height:450px;border:0;border-radius:24px}
-.reveal{opacity:0;transform:translateY(40px);transition:.8s}
+body{
+  margin:0;
+  font-family:Montserrat,system-ui,-apple-system,Segoe UI,sans-serif;
+  color:#fff;
+  background:var(--night);
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,196,83,.22), transparent 28%),
+    radial-gradient(circle at 80% 12%, rgba(94,231,255,.16), transparent 30%),
+    linear-gradient(180deg,#7db7ff 0%,#ffd18b 30%,#df5f66 47%,#283151 66%,#07101f 100%);
+  background-size:100% 220%;
+  animation:skyShift 28s ease-in-out infinite alternate;
+}
+@keyframes skyShift{
+  0%{background-position:center 0%}
+  48%{background-position:center 48%}
+  100%{background-position:center 100%}
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  background-image:
+    radial-gradient(white 1px, transparent 1.4px),
+    radial-gradient(rgba(255,255,255,.8) 1px, transparent 1.4px);
+  background-size:64px 64px, 108px 108px;
+  opacity:.28;
+  animation:stars 8s ease-in-out infinite alternate;
+}
+@keyframes stars{from{opacity:.08}to{opacity:.35}}
+#fireworks,#confettiCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#fireworks{z-index:2}
+#confettiCanvas{z-index:6}
+.topbar{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);
+  z-index:10;width:min(1120px,calc(100% - 28px));
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:999px;
+  background:rgba(10,16,30,.48);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 50px rgba(0,0,0,.2);
+}
+.brand{font-weight:900;letter-spacing:.04em;color:var(--gold2);white-space:nowrap}
+.nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.nav a,.musicBtn{
+  color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.08);
+  padding:10px 14px;border-radius:999px;font-size:.86rem;font-weight:700;
+  cursor:pointer;transition:.25s;
+}
+.nav a:hover,.musicBtn:hover{transform:translateY(-2px);background:rgba(246,196,83,.22)}
+.hero{
+  min-height:100vh;position:relative;display:grid;place-items:center;text-align:center;
+  padding:130px 18px 80px;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    linear-gradient(rgba(4,7,13,.32),rgba(4,7,13,.68)),
+    url('hero.jpg') center/cover fixed;
+  opacity:.92;
+}
+.hero::after{
+  content:"";position:absolute;left:-10%;right:-10%;bottom:-3px;height:180px;
+  background:linear-gradient(transparent,rgba(7,16,31,.98));
+}
+.kicker{letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:var(--gold2);font-size:.9rem}
+.title{
+  font-family:"Great Vibes",cursive;
+  font-size:clamp(4rem,13vw,10rem);
+  line-height:.86;margin:18px 0 10px;
+  background:linear-gradient(90deg,#fff7bf,#f6c453,#fff,#d99b24,#fff7bf);
+  background-size:280% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 22px rgba(246,196,83,.55));
+  animation:goldText 5s linear infinite, floatTitle 5.5s ease-in-out infinite;
+}
+@keyframes goldText{to{background-position:280% center}}
+@keyframes floatTitle{50%{transform:translateY(-10px)}}
+.sub{font-size:clamp(1rem,2.4vw,1.42rem);font-weight:700;max-width:780px;margin:auto;text-shadow:0 3px 24px #000}
+.heroActions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:15px 24px;border-radius:999px;
+  color:#111;text-decoration:none;font-weight:900;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:0 15px 38px rgba(246,196,83,.28);border:0;cursor:pointer
+}
+.btn.secondary{color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);box-shadow:none}
+.scrollHint{position:absolute;bottom:26px;z-index:1;opacity:.8;font-weight:800;animation:bounce 1.7s infinite}
+@keyframes bounce{50%{transform:translateY(8px)}}
+section{position:relative;z-index:3;max-width:1180px;margin:auto;padding:84px 20px}
+.glass{
+  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055));
+  border:1px solid var(--line);border-radius:34px;box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+}
+.card{padding:clamp(26px,5vw,52px)}
+h2{font-size:clamp(2rem,4vw,3.3rem);margin:0 0 22px;color:var(--gold2);letter-spacing:-.04em}
+p{line-height:1.75;font-size:1.06rem}
+.count{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:16px}
+.box{
+  padding:24px 12px;border-radius:26px;text-align:center;
+  background:radial-gradient(circle at top,rgba(255,241,168,.28),rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.15)
+}
+.box span{display:block;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:#fff}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:stretch}
+.timeline{position:relative;padding-left:8px}
+.item{
+  position:relative;margin:18px 0;padding:20px 22px 20px 54px;border-radius:22px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)
+}
+.item::before{
+  content:"";position:absolute;left:20px;top:24px;width:14px;height:14px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 0 7px rgba(246,196,83,.16),0 0 30px var(--gold)
+}
+.gallery{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px
+}
+.photo{
+  position:relative;overflow:hidden;border-radius:30px;height:440px;cursor:zoom-in;
+  border:1px solid rgba(255,255,255,.17);box-shadow:0 26px 60px rgba(0,0,0,.32)
+}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .75s ease,filter .75s}
+.photo:hover img{transform:scale(1.08);filter:saturate(1.18)}
+.photo::after{
+  content:"Klikni pro zobrazení";position:absolute;left:18px;right:18px;bottom:18px;
+  padding:12px 14px;border-radius:18px;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);
+  opacity:0;transform:translateY(8px);transition:.25s;font-weight:800
+}
+.photo:hover::after{opacity:1;transform:none}
+form{display:grid;gap:13px}
+input,select,textarea{
+  width:100%;padding:16px 17px;border:1px solid rgba(255,255,255,.15);
+  border-radius:18px;background:rgba(255,255,255,.92);font:inherit;color:#111;outline:none
+}
+textarea{min-height:120px;resize:vertical}
+button{font:inherit}
+.confirm{
+  display:none;margin-top:16px;padding:18px;border-radius:20px;
+  background:rgba(45,212,191,.18);border:1px solid rgba(45,212,191,.34);font-weight:800
+}
+.mapWrap{position:relative;overflow:hidden;border-radius:30px}
+.mapWrap iframe{width:100%;height:460px;border:0;display:block;filter:saturate(1.08) contrast(1.05)}
+.mapPin{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);
+  font-size:3rem;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45));
+  animation:pin 1.8s ease-in-out infinite
+}
+@keyframes pin{50%{transform:translate(-50%,-118%)}}
+.lightbox{
+  position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.88);
+  display:none;place-items:center;padding:28px
+}
+.lightbox.open{display:grid}
+.lightbox img{max-width:min(1100px,94vw);max-height:86vh;border-radius:24px;box-shadow:0 30px 80px #000}
+.lbClose,.lbPrev,.lbNext{
+  position:fixed;z-index:31;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.12);
+  color:#fff;border-radius:999px;width:52px;height:52px;font-size:1.5rem;cursor:pointer;backdrop-filter:blur(10px)
+}
+.lbClose{top:24px;right:24px}.lbPrev{left:22px;top:50%}.lbNext{right:22px;top:50%}
+.rocketHelp{
+  position:fixed;right:18px;bottom:18px;z-index:8;max-width:290px;padding:14px 16px;border-radius:22px;
+  background:rgba(10,16,30,.62);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(16px);
+  font-size:.86rem;line-height:1.45
+}
+.reveal{opacity:0;transform:translateY(48px);transition:opacity .9s ease,transform .9s ease}
 .reveal.show{opacity:1;transform:none}
-footer{text-align:center;padding:60px 20px}
-.hero-btn{display:inline-block;margin-top:20px;padding:15px 28px;background:var(--gold);color:#000;text-decoration:none;border-radius:999px;font-weight:700}
-.stars{position:fixed;inset:0;background-image:radial-gradient(white 1px,transparent 1px);background-size:50px 50px;opacity:.15;pointer-events:none}
+footer{text-align:center;padding:80px 20px 120px;position:relative;z-index:3}
+.signature{font-family:"Great Vibes",cursive;font-size:4.4rem;color:var(--gold2);margin:0}
+@media(max-width:860px){
+  .topbar{border-radius:24px;align-items:flex-start}.nav a{display:none}
+  .grid,.gallery{grid-template-columns:1fr}.photo{height:340px}.count{grid-template-columns:repeat(2,1fr)}
+  section{padding:58px 15px}.rocketHelp{display:none}
+}
 </style>
 </head>
 <body>
-<div class="stars"></div>
-<canvas id="fireworks"></canvas>
+<canvas id="fireworks" aria-hidden="true"></canvas>
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-<div class="hero">
-  <div class="hero-content">
-    <h1>🎉 Honza a Áďa slaví 65 🎉</h1>
+<header class="topbar">
+  <div class="brand">HONZA & ÁĎA • 65</div>
+  <nav class="nav" aria-label="Navigace">
+    <a href="#pozvanka">Pozvánka</a>
+    <a href="#program">Program</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#rsvp">RSVP</a>
+    <a href="#mapa">Mapa</a>
+    <button class="musicBtn" id="musicBtn" type="button">🎵 Hudba</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="heroContent">
+    <div class="kicker">Prémiová pozvánka • Verze 4.0</div>
+    <h1 class="title">Honza a Áďa slaví 65</h1>
     <p class="sub">11. července 2026 • 14:00 • Hrabětice, Hrušovanská 52</p>
-    <a class="hero-btn" href="#rsvp">Potvrdit účast</a>
+    <div class="heroActions">
+      <a class="btn" href="#rsvp">✨ Potvrdit účast</a>
+      <a class="btn secondary" href="#galerie">📸 Prohlédnout galerii</a>
+    </div>
   </div>
-</div>
-
-<section class="reveal">
-<div class="glass card">
-<h2>Odpočet do oslavy</h2>
-<div class="count">
-<div class="box"><span id="d">0</span>Dní</div>
-<div class="box"><span id="h">0</span>Hodin</div>
-<div class="box"><span id="m">0</span>Minut</div>
-<div class="box"><span id="s">0</span>Sekund</div>
-</div>
-</div>
+  <div class="scrollHint">↓ posuň dolů</div>
 </section>
 
 <section class="reveal">
-<div class="glass card">
-<h2>Pozvánka</h2>
-<p>Přijďte s námi oslavit naše 65. narozeniny. Čeká nás den plný pohody, dobrého jídla, hudby, smíchu a společných vzpomínek.</p>
-</div>
+  <div class="glass card">
+    <h2>Odpočet do oslavy</h2>
+    <div class="count">
+      <div class="box"><span id="d">0</span>Dní</div>
+      <div class="box"><span id="h">0</span>Hodin</div>
+      <div class="box"><span id="m">0</span>Minut</div>
+      <div class="box"><span id="s">0</span>Sekund</div>
+    </div>
+  </div>
 </section>
 
-<section class="reveal">
-<div class="glass card timeline">
-<h2>Program dne</h2>
-<div class="item">14:00 – Příjezd hostů a uvítání</div>
-<div class="item">15:00 – Společný přípitek</div>
-<div class="item">16:00 – Grilování a občerstvení</div>
-<div class="item">18:00 – Hudba a zábava</div>
-<div class="item">22:00 – Volná zábava</div>
-</div>
+<section id="pozvanka" class="reveal">
+  <div class="grid">
+    <div class="glass card">
+      <h2>Pozvánka</h2>
+      <p>Přijďte s námi oslavit naše 65. narozeniny. Čeká nás den plný pohody, dobrého jídla, hudby, smíchu, společných vzpomínek a večerní atmosféry pod hvězdami.</p>
+      <p>Vaše přítomnost je pro nás největším dárkem. Pokud byste nám přesto chtěli něco věnovat, potěší nás příspěvek v obálce.</p>
+    </div>
+    <div class="glass card">
+      <h2>Detaily</h2>
+      <p><strong>Kdy:</strong> sobota 11. července 2026 od 14:00</p>
+      <p><strong>Kde:</strong> Hrabětice, Hrušovanská 52</p>
+      <p><strong>Kontakt:</strong> 728 850 522 • soldan@seznam.cz</p>
+    </div>
+  </div>
 </section>
 
-<section class="reveal">
-<h2>Naše vzpomínky</h2>
-<div class="gallery">
-<img src="hero.jpg">
-<img src="sloni.jpg">
-<img src="zapad.jpg">
-</div>
+<section id="program" class="reveal">
+  <div class="glass card timeline">
+    <h2>Program dne</h2>
+    <div class="item"><strong>14:00</strong> – Příjezd hostů a uvítání</div>
+    <div class="item"><strong>15:00</strong> – Společný přípitek</div>
+    <div class="item"><strong>16:00</strong> – Grilování a občerstvení</div>
+    <div class="item"><strong>18:00</strong> – Hudba a zábava</div>
+    <div class="item"><strong>22:00</strong> – Volná zábava pod noční oblohou</div>
+  </div>
+</section>
+
+<section id="galerie" class="reveal">
+  <h2>Naše vzpomínky</h2>
+  <div class="gallery" id="gallery">
+    <div class="photo"><img src="hero.jpg" alt="Vzpomínka 1"></div>
+    <div class="photo"><img src="sloni.jpg" alt="Vzpomínka 2"></div>
+    <div class="photo"><img src="zapad.jpg" alt="Vzpomínka 3"></div>
+  </div>
 </section>
 
 <section id="rsvp" class="reveal">
-<div class="glass card">
-<h2>Potvrzení účasti do 30. 6. 2026</h2>
-<form action="https://formsubmit.co/soldan@seznam.cz" method="POST">
-<input required name="Jmeno" placeholder="Jméno">
-<select name="Ucast"><option>Přijdu</option><option>Nepřijdu</option></select>
-<input name="Pocet" placeholder="Počet osob">
-<textarea name="Poznamka" placeholder="Poznámka"></textarea>
-<button>Odeslat potvrzení</button>
-</form>
-</div>
+  <div class="glass card">
+    <h2>Potvrzení účasti do 30. 6. 2026</h2>
+    <form id="rsvpForm" action="https://formsubmit.co/soldan@seznam.cz" method="POST">
+      <input required name="Jmeno" placeholder="Jméno">
+      <select name="Ucast"><option>Přijdu</option><option>Nepřijdu</option></select>
+      <input name="Pocet" placeholder="Počet osob">
+      <textarea name="Poznamka" placeholder="Poznámka"></textarea>
+      <input type="hidden" name="_subject" value="Potvrzení účasti na oslavě 65">
+      <input type="hidden" name="_template" value="table">
+      <button class="btn" type="submit">Odeslat potvrzení</button>
+    </form>
+    <div class="confirm" id="confirmBox">✅ Děkujeme, potvrzení se odesílá. Těšíme se na vás!</div>
+  </div>
 </section>
 
-<section class="reveal">
-<div class="glass card">
-<h2>Jak nás najdete</h2>
-<iframe src="https://maps.google.com/maps?q=Hrabetice%20Hrusovanska%2052&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
-</div>
+<section id="mapa" class="reveal">
+  <div class="glass card">
+    <h2>Jak nás najdete</h2>
+    <div class="mapWrap">
+      <iframe src="https://maps.google.com/maps?q=Hrabetice%20Hrusovanska%2052&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+      <div class="mapPin">📍</div>
+    </div>
+  </div>
 </section>
-
-<section class="reveal">
-<div class="glass card">
-<h2>Dárky</h2>
-<p>Vaše přítomnost je pro nás největším dárkem.</p>
-<p>Pokud byste nám přesto chtěli něco věnovat, potěší nás příspěvek v obálce, který nám pomůže s náklady na oslavu.</p>
-<p>📞 728 850 522 • ✉️ soldan@seznam.cz</p>
-</div>
-</section>
+</main>
 
 <footer>
-<h2>Těšíme se na vás ❤️</h2>
-<p>Honza a Áďa</p>
+  <p class="signature">Těšíme se na vás</p>
+  <p>Honza a Áďa ❤️</p>
 </footer>
+
+<div class="rocketHelp">🎇 Klikni kamkoliv na oblohu pro vlastní ohňostroj. Rakety teď fyzicky startují ze spodní části obrazovky.</div>
+
+<div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+  <button class="lbClose" id="lbClose" type="button">×</button>
+  <button class="lbPrev" id="lbPrev" type="button">‹</button>
+  <img id="lbImg" src="" alt="Fotografie v galerii">
+  <button class="lbNext" id="lbNext" type="button">›</button>
+</div>
 
 <script>
 const target=new Date("2026-07-11T14:00:00").getTime();
-setInterval(()=>{
-let x=target-Date.now();
-d.textContent=Math.floor(x/86400000);
-h.textContent=Math.floor((x%86400000)/3600000);
-m.textContent=Math.floor((x%3600000)/60000);
-s.textContent=Math.floor((x%60000)/1000);
-},1000);
+function tick(){
+  let x=Math.max(0,target-Date.now());
+  d.textContent=Math.floor(x/86400000);
+  h.textContent=Math.floor((x%86400000)/3600000);
+  m.textContent=Math.floor((x%3600000)/60000);
+  s.textContent=Math.floor((x%60000)/1000);
+}
+tick(); setInterval(tick,1000);
 
-const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('show')));
-document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.16});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-const c=document.getElementById('fireworks'),ctx=c.getContext('2d');
-function resize(){c.width=innerWidth;c.height=innerHeight}resize();addEventListener('resize',resize);
+const fw=document.getElementById('fireworks'), fctx=fw.getContext('2d');
+const cf=document.getElementById('confettiCanvas'), cctx=cf.getContext('2d');
+function resize(){fw.width=cf.width=innerWidth;fw.height=cf.height=innerHeight}
+resize(); addEventListener('resize',resize);
+
 let particles=[],rockets=[];
+const palettes=[
+  ['#fff1a8','#f6c453','#ff7eb3','#ffffff'],
+  ['#5ee7ff','#8bf5ff','#ffffff','#a78bfa'],
+  ['#fb7185','#f97316','#fde68a','#ffffff'],
+  ['#34d399','#a7f3d0','#fef3c7','#ffffff']
+];
 
-function launch(){
- rockets.push({x:Math.random()*c.width,y:c.height,v:-7-Math.random()*3});
+function makeParticle(x,y,angle,speed,color,life,size,shape){
+  particles.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life,max:life,color,size,shape});
 }
-setInterval(launch,1200);
-
-function explode(x,y){
- for(let i=0;i<100;i++){
-   particles.push({x,y,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10,l:100,h:Math.random()*360});
- }
+function explode(x,y,type='circle'){
+  const pal=palettes[Math.floor(Math.random()*palettes.length)];
+  const count=type==='goldRain'?150:120;
+  for(let i=0;i<count;i++){
+    let angle, speed, color=pal[i%pal.length], shape='dot';
+    if(type==='ring'){angle=(Math.PI*2/count)*i;speed=3.5+Math.random()*1.8}
+    else if(type==='star'){angle=(Math.PI*2/5)*(i%5)+Math.random()*.18;speed=2+Math.random()*7;shape='star'}
+    else if(type==='goldRain'){angle=Math.PI/2+(Math.random()-.5)*1.2;speed=2+Math.random()*5;color=Math.random()>.28?'#f6c453':'#fff1a8';shape='rain'}
+    else {angle=Math.random()*Math.PI*2;speed=1.5+Math.random()*7}
+    makeParticle(x,y,angle,speed,color,75+Math.random()*45,shape==='rain'?2.2:2.8,shape);
+  }
+  for(let i=0;i<22;i++) makeParticle(x,y,Math.random()*Math.PI*2,Math.random()*2.5,'#ffffff',35,1.4,'spark');
 }
-c.addEventListener('click',e=>explode(e.clientX,e.clientY));
+function launch(x=Math.random()*fw.width){
+  rockets.push({x,y:fw.height+20,vx:(Math.random()-.5)*1.2,vy:-8.8-Math.random()*5,target:fw.height*(.18+Math.random()*.42),color:palettes[Math.floor(Math.random()*palettes.length)][0],clicked:false});
+}
+setInterval(()=>launch(),900);
 
-(function anim(){
- requestAnimationFrame(anim);
- ctx.clearRect(0,0,c.width,c.height);
+fw.style.pointerEvents='auto';
+fw.addEventListener('click',e=>{
+  launch(e.clientX);
+  setTimeout(()=>explode(e.clientX,Math.max(90,e.clientY),['circle','ring','star','goldRain'][Math.floor(Math.random()*4)]),280);
+});
 
- rockets.forEach(r=>{
-   r.y+=r.v;
-   ctx.fillStyle='white';
-   ctx.fillRect(r.x,r.y,2,10);
-   if(r.y<c.height*(0.2+Math.random()*0.4)){
-      explode(r.x,r.y);
-      r.dead=true;
-   }
- });
- rockets=rockets.filter(r=>!r.dead);
+function drawStar(ctx,x,y,r,color,a){
+  ctx.save();ctx.globalAlpha=a;ctx.fillStyle=color;ctx.translate(x,y);ctx.beginPath();
+  for(let i=0;i<10;i++){let rr=i%2?r*.45:r;let ang=-Math.PI/2+i*Math.PI/5;ctx.lineTo(Math.cos(ang)*rr,Math.sin(ang)*rr)}
+  ctx.closePath();ctx.fill();ctx.restore();
+}
+function animateFireworks(){
+  requestAnimationFrame(animateFireworks);
+  fctx.clearRect(0,0,fw.width,fw.height);
+  fctx.globalCompositeOperation='lighter';
 
- particles.forEach(p=>{
-   p.x+=p.vx;p.y+=p.vy;p.vy+=0.04;p.l--;
-   ctx.fillStyle=`hsla(${p.h},100%,60%,${p.l/100})`;
-   ctx.beginPath();ctx.arc(p.x,p.y,3,0,7);ctx.fill();
- });
- particles=particles.filter(p=>p.l>0);
-})();
+  rockets.forEach(r=>{
+    r.x+=r.vx; r.y+=r.vy; r.vy+=.035;
+    fctx.strokeStyle=r.color; fctx.lineWidth=2;
+    fctx.beginPath(); fctx.moveTo(r.x,r.y+22); fctx.lineTo(r.x-r.vx*2,r.y); fctx.stroke();
+    fctx.fillStyle='#fff'; fctx.beginPath(); fctx.arc(r.x,r.y,3,0,Math.PI*2); fctx.fill();
+    if(r.y<=r.target || r.vy>=-1.2){explode(r.x,r.y,['circle','ring','star','goldRain'][Math.floor(Math.random()*4)]);r.dead=true}
+  });
+  rockets=rockets.filter(r=>!r.dead);
+
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vx*=.986;p.vy*=.986;p.vy+=p.shape==='rain'?.065:.035;p.life--;
+    let a=Math.max(0,p.life/p.max);
+    if(p.shape==='star') drawStar(fctx,p.x,p.y,p.size*2.2,p.color,a);
+    else if(p.shape==='rain'){
+      fctx.globalAlpha=a;fctx.strokeStyle=p.color;fctx.lineWidth=p.size;
+      fctx.beginPath();fctx.moveTo(p.x,p.y);fctx.lineTo(p.x-p.vx*2,p.y-p.vy*2-8);fctx.stroke();fctx.globalAlpha=1;
+    } else {
+      fctx.globalAlpha=a;fctx.fillStyle=p.color;fctx.beginPath();fctx.arc(p.x,p.y,p.size,0,Math.PI*2);fctx.fill();fctx.globalAlpha=1;
+    }
+  });
+  particles=particles.filter(p=>p.life>0);
+  fctx.globalCompositeOperation='source-over';
+}
+animateFireworks();
+
+let confetti=[];
+function burstConfetti(){
+  for(let i=0;i<170;i++){
+    confetti.push({x:Math.random()*cf.width,y:-20-Math.random()*cf.height*.25,vx:(Math.random()-.5)*4,vy:2+Math.random()*5,r:5+Math.random()*9,rot:Math.random()*6,color:palettes[Math.floor(Math.random()*palettes.length)][Math.floor(Math.random()*4)],life:180+Math.random()*80});
+  }
+}
+burstConfetti();
+function animateConfetti(){
+  requestAnimationFrame(animateConfetti);
+  cctx.clearRect(0,0,cf.width,cf.height);
+  confetti.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.rot+=.08;p.vy+=.01;p.life--;
+    cctx.save();cctx.globalAlpha=Math.min(1,p.life/70);cctx.translate(p.x,p.y);cctx.rotate(p.rot);cctx.fillStyle=p.color;cctx.fillRect(-p.r/2,-p.r/3,p.r,p.r*.66);cctx.restore();
+  });
+  confetti=confetti.filter(p=>p.life>0 && p.y<cf.height+40);
+}
+animateConfetti();
+
+const images=[...document.querySelectorAll('#gallery img')].map(img=>img.getAttribute('src'));
+let current=0;
+const lightbox=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+function openLb(i){current=i;lbImg.src=images[current];lightbox.classList.add('open')}
+function closeLb(){lightbox.classList.remove('open')}
+function moveLb(step){current=(current+step+images.length)%images.length;lbImg.src=images[current]}
+document.querySelectorAll('#gallery .photo').forEach((el,i)=>el.addEventListener('click',()=>openLb(i)));
+lbClose.addEventListener('click',closeLb); lbPrev.addEventListener('click',()=>moveLb(-1)); lbNext.addEventListener('click',()=>moveLb(1));
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLb()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeLb(); if(lightbox.classList.contains('open')&&e.key==='ArrowRight')moveLb(1); if(lightbox.classList.contains('open')&&e.key==='ArrowLeft')moveLb(-1)});
+
+const form=document.getElementById('rsvpForm'), confirmBox=document.getElementById('confirmBox');
+form.addEventListener('submit',()=>{confirmBox.style.display='block';burstConfetti();});
+
+let audioCtx, osc, gain, playing=false;
+function startMusic(){
+  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  gain=audioCtx.createGain(); gain.gain.value=.035; gain.connect(audioCtx.destination);
+  const notes=[261.63,329.63,392,523.25,392,329.63];
+  let i=0;
+  osc=audioCtx.createOscillator(); osc.type='sine'; osc.frequency.value=notes[0]; osc.connect(gain); osc.start();
+  window.musicTimer=setInterval(()=>{i=(i+1)%notes.length;osc.frequency.setTargetAtTime(notes[i],audioCtx.currentTime,.08)},520);
+}
+function stopMusic(){
+  clearInterval(window.musicTimer);
+  if(osc){osc.stop();osc.disconnect()}
+  if(audioCtx)audioCtx.close();
+}
+musicBtn.addEventListener('click',()=>{
+  playing=!playing;
+  if(playing){startMusic();musicBtn.textContent='🔇 Vypnout hudbu'}
+  else{stopMusic();musicBtn.textContent='🎵 Hudba'}
+});
 </script>
 </body>
 </html>
