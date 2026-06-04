@@ -88,7 +88,9 @@ body::after{
 .hero::before{
   content:"";position:absolute;inset:0;z-index:-2;
   background:
-    linear-gradient(rgba(4,7,13,.32),rgba(4,7,13,.68)),
+    linear-gradient(rgba(4,7,13,.25),rgba(4,7,13,.62)),
+    radial-gradient(circle at 50% 28%,rgba(255,241,168,.45),transparent 28%),
+    linear-gradient(135deg,#07101f,#b75f69 52%,#f6c453),
     url('hero.jpg') center/cover fixed;
   opacity:.92;
 }
@@ -96,7 +98,7 @@ body::after{
   content:"";position:absolute;left:-10%;right:-10%;bottom:-3px;height:180px;
   background:linear-gradient(transparent,rgba(7,16,31,.98));
 }
-.kicker{letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:var(--gold2);font-size:.9rem}
+.kicker{display:none}
 .title{
   font-family:"Great Vibes",cursive;
   font-size:clamp(4rem,13vw,10rem);
@@ -226,7 +228,6 @@ footer{text-align:center;padding:80px 20px 120px;position:relative;z-index:3}
 <main>
 <section class="hero">
   <div class="heroContent">
-    <div class="kicker">Prémiová pozvánka • Verze 4.0</div>
     <h1 class="title">Honza a Áďa slaví 65</h1>
     <p class="sub">11. července 2026 • 14:00 • Hrabětice, Hrušovanská 52</p>
     <div class="heroActions">
@@ -279,9 +280,9 @@ footer{text-align:center;padding:80px 20px 120px;position:relative;z-index:3}
 <section id="galerie" class="reveal">
   <h2>Naše vzpomínky</h2>
   <div class="gallery" id="gallery">
-    <div class="photo"><img src="hero.jpg" alt="Vzpomínka 1"></div>
-    <div class="photo"><img src="sloni.jpg" alt="Vzpomínka 2"></div>
-    <div class="photo"><img src="zapad.jpg" alt="Vzpomínka 3"></div>
+    <div class="photo"><img src="hero.jpg" alt="Vzpomínka 1" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1200 800%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop stop-color=%27%2307101f%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c46b6b%27/%3E%3Cstop offset=%271%27 stop-color=%27%23f6c453%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27r%27 cx=%27.5%27 cy=%27.35%27 r=%27.55%27%3E%3Cstop stop-color=%27%23fff1a8%27 stop-opacity=%27.9%27/%3E%3Cstop offset=%271%27 stop-color=%27%23fff1a8%27 stop-opacity=%270%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width=%271200%27 height=%27800%27 fill=%27url(%23g)%27/%3E%3Ccircle cx=%27600%27 cy=%27270%27 r=%27230%27 fill=%27url(%23r)%27/%3E%3Cpath d=%27M0 610 C260 520 410 690 650 590 C870 500 990 595 1200 520 L1200 800 L0 800 Z%27 fill=%27%2308121f%27 opacity=%27.72%27/%3E%3Ctext x=%27600%27 y=%27420%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2768%27 fill=%27%23fff7bf%27 font-weight=%27700%27%3EHonza a Ada%3C/text%3E%3Ctext x=%27600%27 y=%27500%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2742%27 fill=%27white%27%3Eoslava 65%3C/text%3E%3C/svg%3E';"></div>
+    <div class="photo"><img src="sloni.jpg" alt="Vzpomínka 2" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1200 800%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop stop-color=%27%2307101f%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c46b6b%27/%3E%3Cstop offset=%271%27 stop-color=%27%23f6c453%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27r%27 cx=%27.5%27 cy=%27.35%27 r=%27.55%27%3E%3Cstop stop-color=%27%23fff1a8%27 stop-opacity=%27.9%27/%3E%3Cstop offset=%271%27 stop-color=%27%23fff1a8%27 stop-opacity=%270%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width=%271200%27 height=%27800%27 fill=%27url(%23g)%27/%3E%3Ccircle cx=%27600%27 cy=%27270%27 r=%27230%27 fill=%27url(%23r)%27/%3E%3Cpath d=%27M0 610 C260 520 410 690 650 590 C870 500 990 595 1200 520 L1200 800 L0 800 Z%27 fill=%27%2308121f%27 opacity=%27.72%27/%3E%3Ctext x=%27600%27 y=%27420%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2768%27 fill=%27%23fff7bf%27 font-weight=%27700%27%3EHonza a Ada%3C/text%3E%3Ctext x=%27600%27 y=%27500%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2742%27 fill=%27white%27%3Eoslava 65%3C/text%3E%3C/svg%3E';"></div>
+    <div class="photo"><img src="zapad.jpg" alt="Vzpomínka 3" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1200 800%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop stop-color=%27%2307101f%27/%3E%3Cstop offset=%27.45%27 stop-color=%27%23c46b6b%27/%3E%3Cstop offset=%271%27 stop-color=%27%23f6c453%27/%3E%3C/linearGradient%3E%3CradialGradient id=%27r%27 cx=%27.5%27 cy=%27.35%27 r=%27.55%27%3E%3Cstop stop-color=%27%23fff1a8%27 stop-opacity=%27.9%27/%3E%3Cstop offset=%271%27 stop-color=%27%23fff1a8%27 stop-opacity=%270%27/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width=%271200%27 height=%27800%27 fill=%27url(%23g)%27/%3E%3Ccircle cx=%27600%27 cy=%27270%27 r=%27230%27 fill=%27url(%23r)%27/%3E%3Cpath d=%27M0 610 C260 520 410 690 650 590 C870 500 990 595 1200 520 L1200 800 L0 800 Z%27 fill=%27%2308121f%27 opacity=%27.72%27/%3E%3Ctext x=%27600%27 y=%27420%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2768%27 fill=%27%23fff7bf%27 font-weight=%27700%27%3EHonza a Ada%3C/text%3E%3Ctext x=%27600%27 y=%27500%27 text-anchor=%27middle%27 font-family=%27Arial,sans-serif%27 font-size=%2742%27 fill=%27white%27%3Eoslava 65%3C/text%3E%3C/svg%3E';"></div>
   </div>
 </section>
 
@@ -433,10 +434,12 @@ function animateConfetti(){
 }
 animateConfetti();
 
-const images=[...document.querySelectorAll('#gallery img')].map(img=>img.getAttribute('src'));
+const galleryImgs=[...document.querySelectorAll('#gallery img')];
+function gallerySources(){return galleryImgs.map(img=>img.currentSrc || img.src || img.getAttribute('src'));}
+let images=gallerySources();
 let current=0;
 const lightbox=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
-function openLb(i){current=i;lbImg.src=images[current];lightbox.classList.add('open')}
+function openLb(i){images=gallerySources();current=i;lbImg.src=images[current];lightbox.classList.add('open')}
 function closeLb(){lightbox.classList.remove('open')}
 function moveLb(step){current=(current+step+images.length)%images.length;lbImg.src=images[current]}
 document.querySelectorAll('#gallery .photo').forEach((el,i)=>el.addEventListener('click',()=>openLb(i)));
@@ -447,18 +450,38 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeLb(); if(lightbox.classL
 const form=document.getElementById('rsvpForm'), confirmBox=document.getElementById('confirmBox');
 form.addEventListener('submit',()=>{confirmBox.style.display='block';burstConfetti();});
 
-let audioCtx, osc, gain, playing=false;
+let audioCtx, masterGain, musicTimers=[], playing=false;
+function playNote(freq,start,duration,type='triangle',volume=.055){
+  const osc=audioCtx.createOscillator();
+  const g=audioCtx.createGain();
+  osc.type=type;
+  osc.frequency.setValueAtTime(freq,start);
+  g.gain.setValueAtTime(0,start);
+  g.gain.linearRampToValueAtTime(volume,start+.025);
+  g.gain.exponentialRampToValueAtTime(.001,start+duration);
+  osc.connect(g); g.connect(masterGain);
+  osc.start(start); osc.stop(start+duration+.04);
+}
+function scheduleHappyLoop(){
+  const now=audioCtx.currentTime+.04;
+  const melody=[523.25,587.33,659.25,783.99,659.25,587.33,523.25,659.25,698.46,783.99,880,783.99,659.25,587.33,523.25,392];
+  melody.forEach((n,i)=>playNote(n,now+i*.22,.19,'triangle',.06));
+  const bass=[261.63,261.63,349.23,392];
+  bass.forEach((n,i)=>playNote(n,now+i*.88,.42,'sine',.035));
+  const bells=[1046.5,1174.66,1318.51,1567.98];
+  bells.forEach((n,i)=>playNote(n,now+.11+i*.88,.16,'sine',.025));
+}
 function startMusic(){
   audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  gain=audioCtx.createGain(); gain.gain.value=.035; gain.connect(audioCtx.destination);
-  const notes=[261.63,329.63,392,523.25,392,329.63];
-  let i=0;
-  osc=audioCtx.createOscillator(); osc.type='sine'; osc.frequency.value=notes[0]; osc.connect(gain); osc.start();
-  window.musicTimer=setInterval(()=>{i=(i+1)%notes.length;osc.frequency.setTargetAtTime(notes[i],audioCtx.currentTime,.08)},520);
+  masterGain=audioCtx.createGain();
+  masterGain.gain.value=.72;
+  masterGain.connect(audioCtx.destination);
+  scheduleHappyLoop();
+  musicTimers.push(setInterval(scheduleHappyLoop,3520));
 }
 function stopMusic(){
-  clearInterval(window.musicTimer);
-  if(osc){osc.stop();osc.disconnect()}
+  musicTimers.forEach(clearInterval);
+  musicTimers=[];
   if(audioCtx)audioCtx.close();
 }
 musicBtn.addEventListener('click',()=>{
