@@ -1036,6 +1036,83 @@ textarea { min-height:120px; resize:vertical; }
   .btn{font-size:.78rem;padding:10px 12px}
 }
 
+
+/* MOBILNI REZIM BEZ SCROLLU - po odkliknuti hra zmizi a zustane vysledek */
+@media(max-width:780px){
+  html,body{height:100%;overflow:hidden!important}
+  .scene{
+    height:100dvh!important;
+    min-height:100dvh!important;
+    padding:54px 7px 22px!important;
+    overflow:hidden!important;
+  }
+  .content{
+    height:calc(100dvh - 82px)!important;
+    max-height:calc(100dvh - 82px)!important;
+    overflow:hidden!important;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    padding:12px 11px 54px!important;
+  }
+  .content.compact-done{justify-content:center}
+  .content.compact-done .center:not(.keep),
+  .content.compact-done .book,
+  .content.compact-done .timelineRoad,
+  .content.compact-done .glasses,
+  .content.compact-done .clock,
+  .content.compact-done .mapStage,
+  .content.compact-done .garden,
+  .content.compact-done .wall,
+  .content.compact-done .giftBox{
+    display:none!important;
+  }
+  .content.compact-done .reveal.show{
+    display:block!important;
+    margin:auto 0!important;
+  }
+  .content.compact-done .navBtns{display:flex!important}
+  .reveal.show{
+    max-height:calc(100dvh - 220px);
+    overflow:hidden;
+  }
+  #mapReveal iframe,#mapReveal .btn{display:none!important}
+  .finalPage{
+    height:100dvh;
+    overflow:auto!important;
+  }
+}
+@media(max-width:780px) and (max-height:720px){
+  .topbar{top:5px;padding:6px 8px}
+  .scene{padding-top:45px!important}
+  .content{
+    height:calc(100dvh - 68px)!important;
+    max-height:calc(100dvh - 68px)!important;
+    padding:10px 9px 48px!important;
+  }
+  h1{font-size:2.8rem!important}
+  h2{font-size:1.05rem!important;margin:4px 0 7px!important}
+  p{font-size:.78rem!important;line-height:1.28!important}
+  .kicker{font-size:.6rem!important}
+  .btn{padding:9px 11px!important;font-size:.76rem!important}
+  .book,.bookCover,.bookPage{min-height:190px!important}
+  .bookCover div div{font-size:2.05rem!important}
+  .bookPage img{height:95px!important}
+  .year{padding:7px!important}
+  .year span{font-size:.72rem!important}
+  .glasses{height:130px!important}
+  .glass{font-size:3.4rem!important}
+  .clock{width:145px!important;height:145px!important}
+  .mapStage{min-height:165px!important}
+  .carRoad{min-height:160px!important}
+  .garden{min-height:185px!important}
+  .light{width:36px!important;height:36px!important}
+  .programItem{padding:6px 8px!important;font-size:.68rem!important}
+  .polaroid img{height:86px!important}
+  .giftBox{width:115px!important;height:92px!important}
+  .giftBox:after{font-size:2.8rem!important}
+}
+
 </style>
 </head>
 <body>
@@ -1219,7 +1296,7 @@ textarea { min-height:120px; resize:vertical; }
   <div class="finalInner">
     <h1>Těšíme se na vás</h1>
     <h2>Honza a Áďa slaví narozeniny</h2>
-    <p class="center">Všechny části příběhu jsou odemčené. Tady je kompletní pozvánka pohromadě.</p>
+    <p class="center">Všechny informace jsou teď pohromadě.</p>
     <div class="infoGrid">
       <div class="infoCard"><h4>Kdy</h4><p>11. července 2026 od 14:00</p></div>
       <div class="infoCard"><h4>Kde</h4><p>Hrabětice, Hrušovanská 52</p></div>
@@ -1247,6 +1324,14 @@ textarea { min-height:120px; resize:vertical; }
 <div class="lightbox" id="lightbox"><button class="close" id="closeLb">×</button><img id="lbImg" alt="Fotografie"></div>
 
 <script>
+
+function compactCurrentPanel(){
+  if (innerWidth <= 780) {
+    const active = document.querySelector('.scene.active .content');
+    if (active) active.classList.add('compact-done');
+  }
+}
+
 let current=0;
 const scenes=[...document.querySelectorAll('.scene')];
 const bar=document.getElementById('bar');
@@ -1260,7 +1345,7 @@ function showScene(i) {
   scenes[current].classList.add('exitLeft');
   current=Math.max(0,Math.min(i,scenes.length-1));
   setTimeout(()=>{
-    scenes.forEach(s=>s.classList.remove('active','exitLeft','enterRight'));
+    scenes.forEach(s=>{s.classList.remove('active','exitLeft','enterRight'); const c=s.querySelector('.content'); if(c)c.classList.remove('compact-done');});
     scenes[current].classList.add('active');
     updateProgress();
   },260);
@@ -1277,7 +1362,7 @@ function restartStory() {
   finalPage.classList.remove('show');
   document.body.style.overflow='hidden';
   current=0;
-  scenes.forEach(s=>s.classList.remove('active','exitLeft','enterRight'));
+  scenes.forEach(s=>{s.classList.remove('active','exitLeft','enterRight'); const c=s.querySelector('.content'); if(c)c.classList.remove('compact-done');});
   scenes[0].classList.add('active');
   updateProgress();
 }
@@ -1292,6 +1377,7 @@ function openFinal() {
 function reveal(id) {
   document.getElementById(id).classList.add('show');
   boom(innerWidth/2, innerHeight*.32);
+  setTimeout(compactCurrentPanel, 120);
 }
 
 function openBook() {
@@ -1324,7 +1410,7 @@ function driveToHrabetice() {
 function lightProgram(el,i) {
   el.classList.add('on');
   document.querySelectorAll('.programItem')[i].classList.add('show');
-  if(document.querySelectorAll('.light.on').length>=5) boom(innerWidth/2, innerHeight*.30);
+  if(document.querySelectorAll('.light.on').length>=5){ boom(innerWidth/2, innerHeight*.30); setTimeout(compactCurrentPanel,120); }
 }
 function openGift() {
   giftBox.classList.add('open');
